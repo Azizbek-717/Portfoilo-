@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Portfolio — Your Name</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0d0d0d;
+    --paper: #f5f2ec;
+    --cream: #ede9e0;
+    --accent: #c4622d;
+    --accent2: #2d6b8c;
+    --muted: #7a7268;
+    --line: rgba(13,13,13,0.12);
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --mono: 'DM Mono', monospace;
+    --sans: 'Syne', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 18px;
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 9999;
+    opacity: .5;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(245,242,236,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .nav-logo {
+    font-family: var(--sans);
+    font-weight: 800;
+    font-size: 1rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex; gap: 2.5rem; list-style: none;
+  }
+
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: .75rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color .2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 0 4rem;
+    padding-top: 6rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg-text {
+    position: absolute;
+    bottom: -2rem; right: -1rem;
+    font-family: var(--sans);
+    font-weight: 800;
+    font-size: clamp(6rem, 16vw, 18rem);
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(13,13,13,0.06);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+    letter-spacing: -.04em;
+  }
+
+  .hero-left { position: relative; z-index: 2; }
+
+  .hero-tag {
+    font-family: var(--mono);
+    font-size: .72rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: flex; align-items: center; gap: .7rem;
+    margin-bottom: 1.8rem;
+  }
+
+  .hero-tag::before {
+    content: '';
+    display: inline-block;
+    width: 2.5rem; height: 1px;
+    background: var(--accent);
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    line-height: 1.05;
+    letter-spacing: -.02em;
+    margin-bottom: 1.5rem;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-desc {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 38ch;
+    margin-bottom: 3rem;
+    line-height: 1.7;
+  }
+
+  .btn-group { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .btn {
+    font-family: var(--mono);
+    font-size: .78rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: .85rem 2.2rem;
+    text-decoration: none;
+    border: 1px solid;
+    transition: all .25s;
+    cursor: pointer;
+    display: inline-block;
+  }
+
+  .btn-primary {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--paper);
+  }
+
+  .btn-primary:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .btn-outline {
+    background: transparent;
+    border-color: var(--ink);
+    color: var(--ink);
+  }
+
+  .btn-outline:hover {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .hero-right {
+    display: flex; justify-content: center; align-items: center;
+    position: relative; z-index: 2;
+  }
+
+  .hero-card {
+    width: 340px;
+    background: var(--cream);
+    border: 1px solid var(--line);
+    padding: 2.5rem;
+    position: relative;
+  }
+
+  .hero-card::before {
+    content: '';
+    position: absolute;
+    top: .7rem; left: .7rem; right: -.7rem; bottom: -.7rem;
+    border: 1px solid var(--line);
+    z-index: -1;
+  }
+
+  .hero-avatar {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--sans);
+    font-weight: 800;
+    font-size: 1.8rem;
+    color: white;
+    margin-bottom: 1.5rem;
+    letter-spacing: -.02em;
+  }
+
+  .hero-card h3 {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: .3rem;
+  }
+
+  .hero-card .subtitle {
+    font-family: var(--mono);
+    font-size: .72rem;
+    color: var(--muted);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .stat-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .8rem;
+    border-top: 1px solid var(--line);
+    padding-top: 1.5rem;
+  }
+
+  .stat { }
+
+  .stat-num {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 1.6rem;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-family: var(--mono);
+    font-size: .65rem;
+    color: var(--muted);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    margin-top: .2rem;
+  }
+
+  /* ── SECTION SHARED ── */
+  section { padding: 7rem 4rem; }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+
+  .section-num {
+    font-family: var(--mono);
+    font-size: .72rem;
+    color: var(--accent);
+    letter-spacing: .15em;
+  }
+
+  h2 {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    letter-spacing: -.02em;
+    line-height: 1.1;
+  }
+
+  h2 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .section-rule {
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+    margin-left: 1rem;
+  }
+
+  /* ── ABOUT ── */
+  #about { background: var(--cream); }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .about-text p {
+    margin-bottom: 1.4rem;
+    color: #2a2a2a;
+    font-size: 1.05rem;
+  }
+
+  .about-text p:first-child::first-letter {
+    font-size: 3.5rem;
+    font-weight: 600;
+    float: left;
+    line-height: .85;
+    margin-right: .15rem;
+    color: var(--accent);
+  }
+
+  .about-aside { }
+
+  .aside-block {
+    border-left: 2px solid var(--accent);
+    padding-left: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .aside-block h4 {
+    font-family: var(--mono);
+    font-size: .72rem;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: .6rem;
+  }
+
+  .aside-block p {
+    font-size: .95rem;
+    line-height: 1.5;
+  }
+
+  /* ── EDUCATION ── */
+  #education { }
+
+  .edu-list { display: flex; flex-direction: column; gap: 0; }
+
+  .edu-item {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 3rem;
+    padding: 2.5rem 0;
+    border-bottom: 1px solid var(--line);
+    transition: background .2s;
+    position: relative;
+  }
+
+  .edu-item::before {
+    content: '';
+    position: absolute;
+    left: -4rem; right: -4rem; top: 0; bottom: 0;
+    background: var(--cream);
+    opacity: 0;
+    transition: opacity .2s;
+    z-index: -1;
+  }
+
+  .edu-item:hover::before { opacity: 1; }
+
+  .edu-year {
+    font-family: var(--mono);
+    font-size: .78rem;
+    color: var(--muted);
+    letter-spacing: .08em;
+    padding-top: .3rem;
+  }
+
+  .edu-body h3 {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: .2rem;
+  }
+
+  .edu-inst {
+    font-family: var(--mono);
+    font-size: .78rem;
+    color: var(--accent2);
+    letter-spacing: .06em;
+    margin-bottom: .6rem;
+  }
+
+  .edu-desc {
+    font-size: .95rem;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+
+  .edu-badge {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: .65rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: .3rem .8rem;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    margin-top: .8rem;
+  }
+
+  /* ── CERTIFICATES ── */
+  #certificates { background: var(--ink); color: var(--paper); }
+
+  #certificates h2, #certificates .section-num { color: var(--paper); }
+  #certificates h2 em { color: var(--accent); }
+  #certificates .section-rule { background: rgba(245,242,236,0.15); }
+
+  .cert-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5px;
+  }
+
+  .cert-card {
+    background: #161616;
+    padding: 2.2rem;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: background .25s;
+  }
+
+  .cert-card:hover { background: #1e1e1e; }
+
+  .cert-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .35s ease;
+  }
+
+  .cert-card:hover::after { transform: scaleX(1); }
+
+  .cert-icon {
+    width: 44px; height: 44px;
+    border: 1px solid rgba(255,255,255,.15);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
+  }
+
+  .cert-card h3 {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: .4rem;
+    color: var(--paper);
+  }
+
+  .cert-issuer {
+    font-family: var(--mono);
+    font-size: .7rem;
+    color: rgba(245,242,236,.4);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    margin-bottom: .8rem;
+  }
+
+  .cert-year {
+    font-family: var(--mono);
+    font-size: .7rem;
+    color: var(--accent);
+  }
+
+  /* ── VOLUNTEERING ── */
+  #volunteering { }
+
+  .vol-timeline { position: relative; padding-left: 2rem; }
+
+  .vol-timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: .5rem; bottom: 0;
+    width: 1px;
+    background: var(--line);
+  }
+
+  .vol-item {
+    position: relative;
+    padding-left: 3rem;
+    padding-bottom: 4rem;
+  }
+
+  .vol-item:last-child { padding-bottom: 0; }
+
+  .vol-dot {
+    position: absolute;
+    left: -2.35rem;
+    top: .4rem;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 2px solid var(--accent);
+  }
+
+  .vol-meta {
+    font-family: var(--mono);
+    font-size: .72rem;
+    color: var(--muted);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    margin-bottom: .6rem;
+    display: flex; gap: 1.5rem;
+  }
+
+  .vol-org { color: var(--accent2); }
+
+  .vol-item h3 {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 1.15rem;
+    margin-bottom: .7rem;
+  }
+
+  .vol-item p {
+    font-size: .98rem;
+    color: #3a3a3a;
+    max-width: 65ch;
+    line-height: 1.65;
+    margin-bottom: 1rem;
+  }
+
+  .tag-list { display: flex; gap: .5rem; flex-wrap: wrap; }
+
+  .tag {
+    font-family: var(--mono);
+    font-size: .65rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    padding: .25rem .75rem;
+    background: var(--cream);
+    border: 1px solid var(--line);
+    color: var(--muted);
+  }
+
+  /* ── SKILLS ── */
+  #skills { background: var(--cream); }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 2rem;
+  }
+
+  .skill-group h4 {
+    font-family: var(--mono);
+    font-size: .72rem;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.2rem;
+    padding-bottom: .6rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .skill-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: .5rem 0;
+    border-bottom: 1px dashed var(--line);
+  }
+
+  .skill-name {
+    font-size: .95rem;
+    font-family: var(--serif);
+  }
+
+  .skill-bar {
+    width: 80px; height: 3px;
+    background: var(--line);
+    position: relative;
+  }
+
+  .skill-fill {
+    position: absolute;
+    top: 0; left: 0; bottom: 0;
+    background: var(--accent);
+  }
+
+  /* ── CONTACT ── */
+  #contact {
+    background: var(--ink);
+    color: var(--paper);
+    text-align: center;
+    padding: 8rem 4rem;
+  }
+
+  #contact .section-header { justify-content: center; }
+  #contact h2 { color: var(--paper); }
+  #contact h2 em { color: var(--accent); }
+  #contact .section-num { color: rgba(245,242,236,.5); }
+
+  .contact-lead {
+    font-size: 1.1rem;
+    color: rgba(245,242,236,.6);
+    max-width: 48ch;
+    margin: 0 auto 3rem;
+  }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 4rem;
+  }
+
+  .contact-link {
+    font-family: var(--mono);
+    font-size: .78rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: rgba(245,242,236,.5);
+    text-decoration: none;
+    display: flex; align-items: center; gap: .6rem;
+    transition: color .2s;
+  }
+
+  .contact-link:hover { color: var(--accent); }
+
+  .contact-cta {
+    font-family: var(--serif);
+    font-size: clamp(1.6rem, 3vw, 2.5rem);
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(245,242,236,.2);
+    letter-spacing: -.01em;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    border-top: 1px solid rgba(245,242,236,.08);
+    padding: 1.5rem 4rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+
+  footer span {
+    font-family: var(--mono);
+    font-size: .7rem;
+    color: rgba(245,242,236,.25);
+    letter-spacing: .08em;
+  }
+
+  /* ── ANIMATIONS ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    #hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 3rem; }
+    .hero-right { margin-top: 3rem; }
+    section { padding: 5rem 1.5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .edu-item { grid-template-columns: 1fr; gap: .5rem; }
+    footer { flex-direction: column; gap: .5rem; padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">YourName</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#certificates">Certificates</a></li>
+    <li><a href="#volunteering">Volunteering</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left reveal">
+    <div class="hero-tag">International University Applicant</div>
+    <h1>Your <em>Full</em><br>Name Here</h1>
+    <p class="hero-desc">Passionate researcher, community builder, and lifelong learner seeking to contribute to global academic communities through interdisciplinary excellence.</p>
+    <div class="btn-group">
+      <a href="#certificates" class="btn btn-primary">View Portfolio</a>
+      <a href="#contact" class="btn btn-outline">Get in Touch</a>
+    </div>
+  </div>
+  <div class="hero-right reveal" style="transition-delay:.15s">
+    <div class="hero-card">
+      <div class="hero-avatar">YN</div>
+      <h3>Your Name</h3>
+      <p class="subtitle">Your City, Country · Your Field</p>
+      <div class="stat-row">
+        <div class="stat">
+          <div class="stat-num">12+</div>
+          <div class="stat-label">Certificates</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">5</div>
+          <div class="stat-label">Vol. Projects</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">3</div>
+          <div class="stat-label">Languages</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">4.0</div>
+          <div class="stat-label">GPA</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-bg-text" aria-hidden="true">Portfolio</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header reveal">
+    <span class="section-num">01 —</span>
+    <h2>About <em>Me</em></h2>
+    <div class="section-rule"></div>
+  </div>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>Write a compelling introduction about yourself here. Describe your passion for your field, your journey so far, and what drives you. This is your chance to make a personal connection with university admissions committees.</p>
+      <p>Mention your academic interests, key experiences, and what makes your perspective unique. International committees appreciate authenticity and intellectual curiosity — let yours shine through.</p>
+      <p>Close this section with your aspirations: what you hope to contribute and achieve through your university studies, and how your background has prepared you for this next chapter.</p>
+    </div>
+    <div class="about-aside reveal" style="transition-delay:.1s">
+      <div class="aside-block">
+        <h4>Field of Study</h4>
+        <p>Your Major / Field — e.g., Biomedical Engineering, International Relations, etc.</p>
+      </div>
+      <div class="aside-block">
+        <h4>Target Programs</h4>
+        <p>BSc / MSc / PhD — specify the level and type of program you're seeking.</p>
+      </div>
+      <div class="aside-block">
+        <h4>Languages</h4>
+        <p>English (Fluent) · Your Native Language (Native) · Other (Intermediate)</p>
+      </div>
+      <div class="aside-block">
+        <h4>Based In</h4>
+        <p>Your City, Country</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-header reveal">
+    <span class="section-num">02 —</span>
+    <h2>Education</h2>
+    <div class="section-rule"></div>
+  </div>
+  <div class="edu-list">
+
+    <div class="edu-item reveal">
+      <div class="edu-year">2021 — 2025</div>
+      <div class="edu-body">
+        <h3>Bachelor of Science in Your Major</h3>
+        <div class="edu-inst">Your University Name · Your City, Country</div>
+        <p class="edu-desc">Describe your program focus, notable courses, thesis project, or specialization. Mention academic achievements like honors, awards, or leadership roles within the institution.</p>
+        <span class="edu-badge">GPA: 3.9 / 4.0</span>
+      </div>
+    </div>
+
+    <div class="edu-item reveal">
+      <div class="edu-year">2018 — 2021</div>
+      <div class="edu-body">
+        <h3>High School Diploma / Secondary Education</h3>
+        <div class="edu-inst">Your School Name · Your City, Country</div>
+        <p class="edu-desc">Highlight any special programs (IB, AP, national exam results), extracurriculars, or distinctions from your secondary education.</p>
+        <span class="edu-badge">National Ranking: Top 5%</span>
+      </div>
+    </div>
+
+    <div class="edu-item reveal">
+      <div class="edu-year">Summer 2023</div>
+      <div class="edu-body">
+        <h3>Summer Research Program / Exchange</h3>
+        <div class="edu-inst">Partner University · Country</div>
+        <p class="edu-desc">Describe any exchange programs, summer schools, or research internships at other institutions that demonstrate your global engagement and initiative.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CERTIFICATES -->
+<section id="certificates">
+  <div class="section-header reveal">
+    <span class="section-num">03 —</span>
+    <h2>Certificates &amp; <em>Qualifications</em></h2>
+    <div class="section-rule"></div>
+  </div>
+  <div class="cert-grid">
+
+    <div class="cert-card reveal">
+      <div class="cert-icon">🎓</div>
+      <h3>Certificate Name Here</h3>
+      <div class="cert-issuer">Issuing Organization</div>
+      <div class="cert-year">2024</div>
+    </div>
+
+    <div class="cert-card reveal">
+      <div class="cert-icon">🌐</div>
+      <h3>IELTS Academic — Band 8.0</h3>
+      <div class="cert-issuer">British Council / IDP</div>
+      <div class="cert-year">2023</div>
+    </div>
+
+    <div class="cert-card reveal">
+      <div class="cert-icon">📊</div>
+      <h3>Data Analysis Certificate</h3>
+      <div class="cert-issuer">Google / Coursera</div>
+      <div class="cert-year">2023</div>
+    </div>
+
+    <div class="cert-card reveal">
+      <div class="cert-icon">🔬</div>
+      <h3>Research Methodology</h3>
+      <div class="cert-issuer">edX / MIT OpenCourseWare</div>
+      <div class="cert-year">2022</div>
+    </div>
+
+    <div class="cert-card reveal">
+      <div class="cert-icon">💡</div>
+      <h3>Leadership &amp; Innovation</h3>
+      <div class="cert-issuer">Your Issuer Here</div>
+      <div class="cert-year">2022</div>
+    </div>
+
+    <div class="cert-card reveal">
+      <div class="cert-icon">⭐</div>
+      <h3>Add Your Certificate</h3>
+      <div class="cert-issuer">Issuing Body</div>
+      <div class="cert-year">Year</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- VOLUNTEERING -->
+<section id="volunteering">
+  <div class="section-header reveal">
+    <span class="section-num">04 —</span>
+    <h2>Volunteering <em>Projects</em></h2>
+    <div class="section-rule"></div>
+  </div>
+  <div class="vol-timeline">
+
+    <div class="vol-item reveal">
+      <div class="vol-dot"></div>
+      <div class="vol-meta">
+        <span>2023 — Present</span>
+        <span class="vol-org">Organization Name</span>
+      </div>
+      <h3>Project Title / Your Role</h3>
+      <p>Describe what this project involved, the problem you were helping to solve, and the specific contributions you made. Include scale and reach — how many people were impacted, what outcomes were achieved.</p>
+      <div class="tag-list">
+        <span class="tag">Community</span>
+        <span class="tag">Education</span>
+        <span class="tag">Leadership</span>
+      </div>
+    </div>
+
+    <div class="vol-item reveal">
+      <div class="vol-dot"></div>
+      <div class="vol-meta">
+        <span>2022 — 2023</span>
+        <span class="vol-org">Organization Name</span>
+      </div>
+      <h3>Another Volunteering Role</h3>
+      <p>Detail your responsibilities and key achievements in this role. Use numbers where possible — e.g., "coordinated a team of 15 volunteers" or "raised awareness for 200+ community members".</p>
+      <div class="tag-list">
+        <span class="tag">Environment</span>
+        <span class="tag">Research</span>
+      </div>
+    </div>
+
+    <div class="vol-item reveal">
+      <div class="vol-dot"></div>
+      <div class="vol-meta">
+        <span>2021 — 2022</span>
+        <span class="vol-org">Organization Name</span>
+      </div>
+      <h3>Third Volunteering Experience</h3>
+      <p>Highlight cross-cultural or international dimensions of your volunteer work, as these are especially valued by international universities. Mention any challenges you overcame and what you learned.</p>
+      <div class="tag-list">
+        <span class="tag">Youth</span>
+        <span class="tag">International</span>
+        <span class="tag">Advocacy</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header reveal">
+    <span class="section-num">05 —</span>
+    <h2>Skills &amp; <em>Expertise</em></h2>
+    <div class="section-rule"></div>
+  </div>
+  <div class="skills-grid">
+
+    <div class="skill-group reveal">
+      <h4>Technical Skills</h4>
+      <div class="skill-item">
+        <span class="skill-name">Skill One</span>
+        <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
+      </div>
+      <div class="skill-item">
+        <span class="skill-name">Skill Two</span>
+        <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
+      </div>
+      <div class="skill-item">
+        <span class="skill-name">Skill Three</span>
+        <div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div>
+      </div>
+      <div class="skill-item">
+        <span class="skill-name">Skill Four</span>
+        <div class="skill-bar"><div class="skill-fill" style="width:60%"></div></div>
+      </div>
+    </div>
+
+    <div class="skill-group reveal" style="transition-delay:.1s">
+      <h4>Languages</h4>
+      <div class="skill-item">
+        <span class="skill-name">English</span>
+        <div class="skill-bar"><div class="skill-fill" style="width:95%"></div></div>
+      </div>
+      <div class="skill-item">
+        <span class="skill-name">Your Language</span>
+        <div class="skill-bar"><div class="skill-fill" style="width:100%"></div></div>
+      </div>
+      <div class="skill-item">
+        <span class="skill-name">Third Language</span>
+        <div class="skill-bar"><div class="skill-fill" style="width:55%"></div></div>
+      </div>
+    </div>
+
+    <div class="skill-group reveal" style="transition-delay:.2s">
+      <h4>Soft Skills</h4>
+      <div class="skill-item">
+        <span class="skill-name">Leadership</span>
+        <div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div>
+      </div>
+      <div class="skill-item">
+        <span class="skill-name">Research</span>
+        <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
+      </div>
+      <div class="skill-item">
+        <span class="skill-name">Public Speaking</span>
+        <div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div>
+      </div>
+      <div class="skill-item">
+        <span class="skill-name">Cross-cultural Comm.</span>
+        <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
+      </div>
+    </div>
+
+    <div class="skill-group reveal" style="transition-delay:.3s">
+      <h4>Tools &amp; Platforms</h4>
+      <div class="skill-item">
+        <span class="skill-name">Microsoft Office</span>
+        <div class="skill-bar"><div class="skill-fill" style="width:95%"></div></div>
+      </div>
+      <div class="skill-item">
+        <span class="skill-name">Research Software</span>
+        <div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div>
+      </div>
+      <div class="skill-item">
+        <span class="skill-name">Add Your Tool</span>
+        <div class="skill-bar"><div class="skill-fill" style="width:65%"></div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header reveal">
+    <span class="section-num">06 —</span>
+    <h2>Get in <em>Touch</em></h2>
+  </div>
+  <p class="contact-lead reveal">Open to academic collaborations, research opportunities, and university admissions conversations. Reach out below.</p>
+  <div class="contact-links reveal">
+    <a href="mailto:your@email.com" class="contact-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      your@email.com
+    </a>
+    <a href="https://linkedin.com/in/yourprofile" target="_blank" class="contact-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      LinkedIn
+    </a>
+    <a href="https://github.com/yourusername" target="_blank" class="contact-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+      GitHub
+    </a>
+    <a href="#" class="contact-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      Your City, Country
+    </a>
+  </div>
+  <div class="contact-cta reveal">"Seeking to learn, contribute, and grow."</div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2025 Your Name — Personal Portfolio</span>
+  <span>Built for international university applications</span>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Trigger hero reveals immediately
+  document.querySelectorAll('#hero .reveal').forEach(el => {
+    setTimeout(() => el.classList.add('visible'), 100);
+  });
+</script>
+</body>
+</html>
